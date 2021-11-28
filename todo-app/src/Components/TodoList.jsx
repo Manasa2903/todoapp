@@ -1,6 +1,6 @@
 const TodoList = ({todoDetails, deleteTodo}) => {
 
-    const {id, todoValue} = todoDetails
+    const {id, todoValue, todoDescription} = todoDetails
 
     const onDeleteTodo = () =>
     {
@@ -11,7 +11,10 @@ const TodoList = ({todoDetails, deleteTodo}) => {
 
     return(
         <div className="todo">
-            <p className="todo-name">{todoValue}</p>
+            <div className="todo-details-container">
+                <h1 className="todo-name">{todoValue}</h1>
+                <p className="todos-description">{todoDescription}</p>
+            </div>
             <button onClick={onDeleteTodo} className="todo-button">Delete</button>
         </div>
     )

@@ -1,6 +1,13 @@
 .todo {
     display: flex;
     margin-top: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.todo-list-container {
+    height: 70vh;
+    overflow: auto;
 }
 
 .todo-name {
@@ -8,12 +15,72 @@
     margin-top: 8px;
 }
 
+.todo-details-container {
+    width: 50%;
+}
+
 .todo-button {
     background-color: brown;
     color: white;
     border: 0;
     border-radius: 10px;
+    width: 60px;
+    height: 35px;
+    cursor: pointer;
+}
+
+.no-todos {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30vh;
+    font-size: 30px;
+    color: brown;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.todo-input {
+    height: 30px;
+    width: 350px;
+    border-radius: 10px;
+    border: 1px solid rgb(99, 96, 96);
+    outline: none;
+    padding-left: 10px;
+    margin-bottom: 15px;
+}
+
+.heading {
+    text-align: center;
+}
+
+.todo-description {
+    height: 50px;
+    width: 350px;
+    border-radius: 10px;
+    border: 1px solid rgb(95, 92, 92);
+    outline: none;
+    padding-left: 10px;
+    padding-top: 10px;
+    margin-bottom: 15px;
+}
+
+.todos-description {
+    width: 100px;
+    height: fit-content;
+}
+
+.add-button {
+    background-color: brown;
+    color: white;
     width: 100px;
     height: 35px;
+    border: 0;
+    border-radius: 8px;
     cursor: pointer;
 }

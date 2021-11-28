@@ -6,6 +6,7 @@ function App() {
 
   const [todoList , setTodoList] = useState([])
   const [inputVal , setInputVal] = useState("")
+  const [description, setDescription] = useState("")
   const [id, setId] = useState(1)
 
   const addTodo = (event) =>
@@ -13,11 +14,13 @@ function App() {
     event.preventDefault()
     let newTodo = {
       id : id,
-      todoValue : inputVal
+      todoValue : inputVal,
+      todoDescription : description
     }
     setTodoList(prevState => ([...prevState, newTodo]))
     setId(id + 1)
     setInputVal("")
+    setDescription("")
   }
 
   const deleteTodo = (id) =>
@@ -33,18 +36,34 @@ function App() {
     setInputVal(event.target.value)
   }
 
+  const handleDescription = (event) =>
+  {
+    setDescription(event.target.value)
+  }
+
   return (
     <>
-   <form onSubmit={addTodo}> 
-     <input type="text" className="todo-input" onChange={handleInput} value={inputVal} required/>
-     <button type="submit">Add Todo</button>
-   </form>
+    <h1 className="heading">Todo App</h1>
+    <form onSubmit={addTodo} className="form-container"> 
+    <div>
+      <input type="text" className="todo-input" placeholder="Enter Title" onChange={handleInput} value={inputVal} required/>
+    </div>
+    <div>
+      <textarea value={description} onChange={handleDescription} placeholder="Add Details here...." className="todo-description" required/>
+    </div>
+      <div>
+      <button type="submit" className="add-button">Add Todo</button>
+      </div>
+    </form>
+    
+    <div className="todo-list-container">
    {
-     todoList.map(eachTodo => <TodoList key={eachTodo.id} todoDetails={eachTodo} deleteTodo = {deleteTodo}/>)
+    todoList.length>0? todoList.map(eachTodo => <TodoList key={eachTodo.id} todoDetails={eachTodo} deleteTodo = {deleteTodo}/>) : <p className="no-todos">No Todos here...</p>
    }
    {
        console.log(todoList)
    }
+   </div>
    </>
   );
 }
