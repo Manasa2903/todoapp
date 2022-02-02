@@ -1,12 +1,27 @@
 import { useState, useEffect } from "react";
 import "./App.css";
 import TodoList from "./Components/TodoList.jsx";
+import useLocalStorage from "./Components/useLocalStorage.jsx";
 
 function App() {
-  const [todoList, setTodoList] = useState([]);
+  //const storageTodoList = useLocalStorage("get", "todoList");
+  //const storageTodoList = localStorage.getItem("todoList");
+  const { setItem, getItem, removeItem } = useLocalStorage();
+
+  const getLocalStorageValue = () => {
+    const localStorageItem = getItem("todoList");
+    const todoListLocalStorage = localStorageItem ? localStorageItem : [];
+    return todoListLocalStorage;
+  };
+
+  const [todoList, setTodoList] = useState(getLocalStorageValue());
   const [inputVal, setInputVal] = useState("");
   const [description, setDescription] = useState("");
-  const [id, setId] = useState(1);
+
+  const [id, setId] = useState(
+    todoList.length ? todoList[todoList.length - 1].id + 1 : 1
+  );
+
   const [filteredList, setFilteredList] = useState([]);
   const [search, setSearch] = useState("");
 
@@ -27,7 +42,6 @@ function App() {
   const deleteTodo = (id) => {
     const filteredTodo = todoList.filter((eachTodo) => eachTodo.id !== id);
     setTodoList(filteredTodo);
-    setFilteredList(filteredTodo);
   };
 
   const handleInput = (event) => {
@@ -99,6 +113,23 @@ function App() {
         )}
         {console.log(filteredList)}
         {console.log(todoList)}
+        <button
+          className="add-button"
+          onClick={() => {
+            setItem("todoList", todoList);
+          }}
+        >
+          Save
+        </button>
+        <button
+          className="add-button"
+          onClick={() => {
+            removeItem("todoList");
+            setTodoList(getLocalStorageValue());
+          }}
+        >
+          Reset
+        </button>
       </div>
     </>
   );
