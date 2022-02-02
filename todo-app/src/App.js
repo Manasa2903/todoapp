@@ -8,13 +8,9 @@ function App() {
   //const storageTodoList = localStorage.getItem("todoList");
   const { setItem, getItem, removeItem } = useLocalStorage();
 
-  const getLocalStorageValue = () => {
-    const localStorageItem = getItem("todoList");
-    const todoListLocalStorage = localStorageItem ? localStorageItem : [];
-    return todoListLocalStorage;
-  };
+  //const localStorageItem = getItem("todoList");
 
-  const [todoList, setTodoList] = useState(getLocalStorageValue());
+  const [todoList, setTodoList] = useState(getItem("todoList"));
   const [inputVal, setInputVal] = useState("");
   const [description, setDescription] = useState("");
 
@@ -125,7 +121,7 @@ function App() {
           className="add-button"
           onClick={() => {
             removeItem("todoList");
-            setTodoList(getLocalStorageValue());
+            setTodoList(getItem("todoList"));
           }}
         >
           Reset
