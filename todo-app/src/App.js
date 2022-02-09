@@ -1,16 +1,17 @@
 import { useState, useEffect } from "react";
 import "./App.css";
 import TodoList from "./Components/TodoList.jsx";
-import useLocalStorage from "./Components/useLocalStorage.jsx";
+import useLocalStorage from "./Hooks/useLocalStorage.jsx";
 
 function App() {
   //const storageTodoList = useLocalStorage("get", "todoList");
   //const storageTodoList = localStorage.getItem("todoList");
-  const { setItem, getItem, removeItem } = useLocalStorage();
+  const [todos, setTodos, removeTodos] = useLocalStorage("todoList", []);
 
   //const localStorageItem = getItem("todoList");
+  //console.log(todos);
 
-  const [todoList, setTodoList] = useState(getItem("todoList"));
+  const [todoList, setTodoList] = useState(todos);
   const [inputVal, setInputVal] = useState("");
   const [description, setDescription] = useState("");
 
@@ -112,7 +113,7 @@ function App() {
         <button
           className="add-button"
           onClick={() => {
-            setItem("todoList", todoList);
+            setTodos(todoList);
           }}
         >
           Save
@@ -120,11 +121,11 @@ function App() {
         <button
           className="add-button"
           onClick={() => {
-            removeItem("todoList");
-            setTodoList(getItem("todoList"));
+            removeTodos();
+            setTodoList([]);
           }}
         >
-          Reset
+          Remove Item
         </button>
       </div>
     </>
