@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useCallback, useState } from "react";
 
 const useLocalStorage = (key, initialValue = "") => {
-  const [localStorgeValue, setLocalStorageValue] = useState(() => {
+  const [localStorageValue, setLocalStorageValue] = useState(() => {
     try {
       return localStorage.getItem(key)
         ? JSON.parse(localStorage.getItem(key))
@@ -11,15 +11,33 @@ const useLocalStorage = (key, initialValue = "") => {
     }
   });
 
+  /* Using useEffect 
   useEffect(() => {
-    localStorage.setItem(key, JSON.stringify(localStorgeValue));
-  }, [localStorgeValue, key]);
+    localStorage.setItem(key, JSON.stringify(localStorageValue));
+   }, [localStorageValue, key]);
 
-  const removeItemFunc = () => {
+   // return setLocalStorageValue instead of setItem when using this method
+*/
+  /* using useCallback
+
+  const setItem = useCallback(
+    (value) => {
+      localStorage.setItem(key, JSON.stringify(value));
+      setLocalStorageValue(value);
+    },
+    [key]
+  ); */
+
+  const setItem = (value) => {
+    localStorage.setItem(key, JSON.stringify(value));
+    setLocalStorageValue(value);
+  };
+
+  const removeItem = () => {
     localStorage.removeItem(key);
   };
 
-  return [localStorgeValue, setLocalStorageValue, removeItemFunc];
+  return [localStorageValue, setItem, removeItem];
 };
 
 export default useLocalStorage;

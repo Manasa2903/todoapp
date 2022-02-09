@@ -4,13 +4,17 @@ import TodoList from "./Components/TodoList.jsx";
 import useLocalStorage from "./Hooks/useLocalStorage.jsx";
 
 function App() {
-  //const storageTodoList = useLocalStorage("get", "todoList");
-  //const storageTodoList = localStorage.getItem("todoList");
   const [todos, setTodos, removeTodos] = useLocalStorage("todoList", []);
 
-  //const localStorageItem = getItem("todoList");
-  //console.log(todos);
+  /* working For more than one localStorage item
+  const [name, setName, removeName] = useLocalStorage("NAME");
 
+  useEffect(() => {
+    setName("Namee");
+    console.log(name);
+  }, []);
+
+*/
   const [todoList, setTodoList] = useState(todos);
   const [inputVal, setInputVal] = useState("");
   const [description, setDescription] = useState("");
@@ -127,6 +131,15 @@ function App() {
         >
           Remove Item
         </button>
+        {/* Working for more than one localStorage Item keys
+        <button
+          className="add-button"
+          onClick={() => {
+            removeName();
+          }}
+        >
+          Remove
+        </button> */}
       </div>
     </>
   );
