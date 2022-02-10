@@ -34,7 +34,9 @@ const useLocalStorage = (key, initialValue = "") => {
   };
 
   const removeItem = () => {
-    localStorage.removeItem(key);
+    if (localStorage.getItem(key)) {
+      localStorage.removeItem(key);
+    }
   };
 
   return [localStorageValue, setItem, removeItem];
